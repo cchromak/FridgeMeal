@@ -72,7 +72,16 @@ After a user inputs ingredients they have at their disposal they are shown a lis
 
 ### Login
 ![](https://github.com/cchromak/FridgeMeal/blob/main/Images/loginWF.png)
-<img src="YOUR_WIREFRAME_IMAGE_URL" width=600>
+
+### Home
+![](https://github.com/cchromak/FridgeMeal/blob/main/Images/homeWF.png)
+
+### Recipe Detail
+![](https://github.com/cchromak/FridgeMeal/blob/main/Images/recipeDetailWF.png)
+
+### Profile
+![](https://github.com/cchromak/FridgeMeal/blob/main/Images/profileWF.png)
+
 
 ### [BONUS] Digital Wireframes & Mockups
 
