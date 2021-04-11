@@ -83,15 +83,41 @@ After a user inputs ingredients they have at their disposal they are shown a lis
 ![](https://github.com/cchromak/FridgeMeal/blob/main/Images/profileWF.png)
 
 
-### [BONUS] Digital Wireframes & Mockups
-
-### [BONUS] Interactive Prototype
-
 ## Schema 
-[This section will be completed in Unit 9]
-### Models
-[Add table of models]
+### Model
+#### Post
+
+   | Property      | Type     | Description |
+   | ------------- | -------- | ------------|
+   | userName    | String   | User name used to login |
+   | userPassword    | String  | User password used to login |
+   | userImage | File | User image for profile |
+   | objectId      | String   | Unique id for the user posted recipe (default field) |
+   | author        | String| Author name or blank if from api |
+   | mealImage         | File     | Image for recipe |
+   | mealName | String | Title of the meal |
+   | directions      | String   | Directions by author or from api|
+   | ingredients | String | Ingredients accessible for meal |
+   | createdAt     | DateTime | date when post is created (default field) |
+   | updatedAt     | DateTime | date when post is last updated (default field) |
+
 ### Networking
-- [Add list of network requests by screen ]
-- [Create basic snippets for each Parse network request]
-- [OPTIONAL: List endpoints if using existing API such as Yelp]
+- ### Network Requests
+#### Home Feed Screen
+     (POST/GET) Query all posts that matches user search criteria
+     (Create/POST) Create a new recipe post
+     (Delete) Delete existing recipe created by current user 
+     (Create/POST) Create a new comment on a recipe
+     (Delete) Delete existing comment
+#### Create Post Screen
+    (Create/POST) Create a new recipe object
+    (Create/POST) Set recipe as private/public
+#### Profile Screen
+    (Read/GET) Query logged in user object
+    (Update/PUT) Update user profile image
+    (Read/GET) Most Recent Recipes 
+    (Read/GET) Favorite User Recipes
+    (Read/GET) Home feed of friends post
+#### Recipe Details
+    (Read/GET) Recipe details
+    (Create/POST) A new like/favorite
