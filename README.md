@@ -69,18 +69,9 @@ After a user inputs ingredients they have at their disposal they are shown a lis
    * Recipe details
 
 ## Wireframes
+[Add picture of your hand sketched wireframes in this section]
+<img src="YOUR_WIREFRAME_IMAGE_URL" width=600>
 
-### Login
-![](https://github.com/cchromak/FridgeMeal/blob/main/Images/loginWF.png)
-
-### Home
-![](https://github.com/cchromak/FridgeMeal/blob/main/Images/homeWF.png)
-
-### Recipe Detail
-![](https://github.com/cchromak/FridgeMeal/blob/main/Images/recipeDetailWF.png)
-
-### Profile
-![](https://github.com/cchromak/FridgeMeal/blob/main/Images/profileWF.png)
 
 
 ## Schema 
@@ -104,20 +95,64 @@ After a user inputs ingredients they have at their disposal they are shown a lis
 ### Networking
 - ### Network Requests
 #### Home Feed Screen
-     (POST/GET) Query all posts that matches user search criteria
-     (Create/POST) Create a new recipe post
-     (Delete) Delete existing recipe created by current user 
-     (Create/POST) Create a new comment on a recipe
-     (Delete) Delete existing comment
-#### Create Post Screen
-    (Create/POST) Create a new recipe object
-    (Create/POST) Set recipe as private/public
+    (POST/GET) Query all posts that matches user search criteria
+##### (Create/POST/PUT) Create a new recipe post
+      Recipe recipe = new Recipe();
+        recipe.setRecipeName();
+        recipe.setUserID(currentUserId);
+        recipe.setRecipeLink(enter apiURL);
+        recipe.saveInBackground(new SaveCallback(){
+            @Override
+            public void done(ParseException e){}
+        });
+        recipe.setFavorite(Recipe.KEY_PRIVATE, true);
+
+##### (Delete) Delete existing recipe created by current user
+    ParseQuery<Recipe> query = ParseQuery.getQuery(Recipe.class);
+        query.whereEqualTo(Recipe.KEY_CREATED, USER ID);
+        Recipe recipe = query.getPosition(0);
+        recipe.deleteInBackground(true);
+        
+    
+#### Recipe Detail
+##### (Read/GET) Recipe details
+        ParseQuery<Recipe> query = ParseQuery.getQuery(Recipe.class);
+        query.whereEqualTo(Recipe.KEY_CREATED, RECIPE ID);
+##### (PUT) A new like/favorite 
+    ParseQuery<Recipe> query = ParseQuery.getQuery(Recipe.class);
+        query.whereEqualTo(Recipe.KEY_CREATED, RECIPE ID);
+        Recipe recipe = query.getPosition(0);
+        recipe.setFavorite(true) or recipe.put(Recipe.KEY_FAVORITE, true)
+
 #### Profile Screen
-    (Read/GET) Query logged in user object
-    (Update/PUT) Update user profile image
-    (Read/GET) Most Recent Recipes 
-    (Read/GET) Favorite User Recipes
-    (Read/GET) Home feed of friends post
-#### Recipe Details
-    (Read/GET) Recipe details
-    (Create/POST) A new like/favorite
+      String currentUserId = ParseUser.getCurrentUser().getObjectId();
+##### (Update/PUT) Update user profile image
+     // String parseFile = link here
+        if (parseFile != null){
+            ParseUser current = ParseUser.getCurrentUser();
+            current.put(PROFILE_PHOTO, parseFile);
+        }
+        else {
+            Log.e("Profile Photo Error", "Photo is null cannot update", new Exception());
+        }
+##### (Read/GET) Most Recent Recipes 
+    ParseQuery<Recipe> query = ParseQuery.getQuery(Recipe.class);
+        query.whereLessThan(Recipe.KEY_CREATED_KEY, DATE Object);
+        query.whereEqualTo(Recipe.KEY_USERID, CURRENT USERID);
+        query.setLimit(20);
+
+##### (Read/GET) Favorite User Recipes
+    ParseQuery<Recipe> query = ParseQuery.getQuery(Recipe.class);
+        query.whereEqualTo(Recipe.KEY_FAVORITE, TRUE);
+        query.whereEqualTo(Recipe.KEY_USERID, CURRENT USERID);
+        query.setLimit(20);
+##### (Read/GET) Home feed of friends post
+     ParseQuery<Recipe> query = ParseQuery.getQuery(Recipe.class);
+        query.whereEqualTo(Recipe.KEY_USERID, CURRENT USERID);
+        ParseQuery<User> friend = ParseQuery.getQuery(Friend.class);
+        query.whereContainedIn(Recipe.Key_UserID, friend);
+        query.setLimit(20);
+
+
+- [Create basic snippets for each Parse network request]
+- [OPTIONAL: List endpoints if using existing API such as Yelp]
