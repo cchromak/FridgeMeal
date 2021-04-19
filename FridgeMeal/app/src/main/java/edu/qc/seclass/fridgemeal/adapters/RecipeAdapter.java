@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import edu.qc.seclass.fridgemeal.MainActivity;
 import edu.qc.seclass.fridgemeal.R;
 import edu.qc.seclass.fridgemeal.models.Recipe;
 
@@ -20,6 +21,11 @@ public class RecipeAdapter extends  RecyclerView.Adapter<RecipeAdapter.ViewHolde
 
     Context context;
     List<Recipe> recipes;
+
+    public RecipeAdapter(Context context, List<Recipe> recipes) {
+        this.context = context;
+        this.recipes = recipes;
+    }
 
     @NonNull
     @Override
@@ -30,7 +36,7 @@ public class RecipeAdapter extends  RecyclerView.Adapter<RecipeAdapter.ViewHolde
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Recipe recipe    = recipes.get(position);
+        Recipe recipe = recipes.get(position);
         holder.bind(recipe);
     }
 
