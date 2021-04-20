@@ -156,3 +156,4 @@ After a user inputs ingredients they have at their disposal they are shown a lis
 
 - [Create basic snippets for each Parse network request]
 - [OPTIONAL: List endpoints if using existing API such as Yelp]
+<img src = 'https://github.com/cchromak/FridgeMeal/blob/main/FridgeMeal/TransitionLogin.gif' title='Video Walkthrough' width='' alt='Video Walkthrough'/>
