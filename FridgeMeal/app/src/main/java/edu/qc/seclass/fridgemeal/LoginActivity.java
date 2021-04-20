@@ -75,6 +75,7 @@ public class LoginActivity extends AppCompatActivity {
             public void done(ParseUser user, ParseException e) {
                 if (e != null){
                     Toast.makeText(mContext, "Issue with login", Toast.LENGTH_LONG).show();
+                    return;
                 }
                 //Go to main activity
                 Intent i = new Intent(mContext, MainActivity.class);
@@ -92,6 +93,7 @@ public class LoginActivity extends AppCompatActivity {
             public void done(ParseException e) {
                 if (e != null){
                     Toast.makeText(mContext, "Issue with login", Toast.LENGTH_LONG).show();
+                    return;
                 }
                 //Go to main activity if successful
                 Intent i = new Intent(mContext, MainActivity.class);
