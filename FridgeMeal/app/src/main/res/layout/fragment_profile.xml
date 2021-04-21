@@ -1,21 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.ProfileFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/idProfileGreeting"
+
+    <ImageView
+        android:id="@+id/bImage6"
+        android:layout_width="59dp"
+        android:layout_height="51dp"
+        android:layout_below="@+id/txtUsername"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="11dp"
+        android:layout_toEndOf="@+id/bImage5"
+        tools:src="@tools:sample/avatars" />
+
+    <ImageView
+        android:id="@+id/bImage5"
+        android:layout_width="59dp"
+        android:layout_height="51dp"
+        android:layout_below="@+id/txtUsername"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="11dp"
+        android:layout_toEndOf="@+id/bImage4"
+        tools:src="@tools:sample/avatars" />
+
+    <ImageView
+        android:id="@+id/bImage4"
+        android:layout_width="59dp"
+        android:layout_height="51dp"
+        android:layout_below="@+id/txtUsername"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="11dp"
+        android:layout_toEndOf="@+id/bImage3"
+        tools:src="@tools:sample/avatars" />
+
+    <ImageView
+        android:id="@+id/bImage3"
+        android:layout_width="59dp"
+        android:layout_height="51dp"
+        android:layout_below="@+id/txtUsername"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="11dp"
+        android:layout_toEndOf="@+id/bImage2"
+        tools:src="@tools:sample/avatars" />
+
+    <ImageView
+        android:id="@+id/bImage2"
+        android:layout_width="59dp"
+        android:layout_height="51dp"
+        android:layout_below="@+id/txtUsername"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="11dp"
+        android:layout_toEndOf="@+id/bImage1"
+        tools:src="@tools:sample/avatars" />
+
+    <ImageView
+        android:id="@+id/profileImage"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="96dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="14dp"
+        tools:src="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/txtUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/profileImage"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="4dp"
+        android:text="username" />
+
+    <EditText
+        android:id="@+id/txtDescription"
+        android:layout_width="237dp"
+        android:layout_height="79dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="38dp"
+        android:layout_toEndOf="@+id/profileImage"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:textSize="10sp"
+        tools:text="This is a general description of the inddividuals profile, of themselves, or whatever you choose to put here, I'm sure I've made at least 50 typos by now" />
+
+    <ImageView
+        android:id="@+id/bImage1"
+        android:layout_width="59dp"
+        android:layout_height="51dp"
+        android:layout_below="@+id/txtUsername"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="12dp"
+        tools:src="@tools:sample/avatars" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="390dp"
+        android:layout_height="625dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="145dp"
-        android:layout_marginTop="341dp"
-        android:text="Hello i am a profile" />
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="14dp" />
 
 </RelativeLayout>
