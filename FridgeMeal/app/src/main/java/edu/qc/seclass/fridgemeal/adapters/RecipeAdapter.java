@@ -48,6 +48,11 @@ public class RecipeAdapter extends  RecyclerView.Adapter<RecipeAdapter.ViewHolde
         return recipes.size();
     }
 
+    public void clearData() {
+        // clear the data
+        recipes.clear();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         RelativeLayout containerRecipe;
