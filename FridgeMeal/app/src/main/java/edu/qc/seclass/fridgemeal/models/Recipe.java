@@ -13,12 +13,16 @@ public class Recipe {
 
     private String recipeName;
     private String cookingTime;
-    private String description;
+    private String serving;
+    private String calories;
+    private String imagePath;
 
     public Recipe(JSONObject jsonObject) throws JSONException { ;
         this.recipeName = jsonObject.getJSONObject("recipe").getString("label");
-        this.cookingTime = "45 mins";
-        this.description = "jesus";
+        this.cookingTime = jsonObject.getJSONObject("recipe").getString("totalTime");
+        this.serving = jsonObject.getJSONObject("recipe").getString("yield");
+        this.calories = jsonObject.getJSONObject("recipe").getString("calories");
+        this.imagePath = jsonObject.getJSONObject("recipe").getString("image");
     }
 
     public static List<Recipe> fromJsonArray(JSONArray jsonArray) throws JSONException {
@@ -38,19 +42,35 @@ public class Recipe {
     }
 
     public String getCookingTime() {
-        return cookingTime;
+        return getStringBeforePeriod(cookingTime) + " Mins";
     }
 
     public void setCookingTime(String cookingTime) {
         this.cookingTime = cookingTime;
     }
 
-    public String getDescription() {
-        return description;
+    public String getServing() {
+        return getStringBeforePeriod(serving) + " Servings";
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public String getCalories() {
+        return getStringBeforePeriod(calories) + " Calories";
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public String getStringBeforePeriod(String word) {
+        StringBuilder sb = new StringBuilder();
+        for (char c: word.toCharArray()) {
+            if(c == '.') {
+                return sb.toString();
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
     }
 }
 

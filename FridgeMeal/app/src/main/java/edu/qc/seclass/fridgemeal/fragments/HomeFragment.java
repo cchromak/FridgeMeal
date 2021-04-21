@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -35,6 +36,9 @@ import edu.qc.seclass.fridgemeal.R;
 import edu.qc.seclass.fridgemeal.adapters.RecipeAdapter;
 import edu.qc.seclass.fridgemeal.models.Recipe;
 import okhttp3.Headers;
+
+import static android.content.Context.INPUT_METHOD_SERVICE;
+import static androidx.core.content.ContextCompat.getSystemService;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -132,11 +136,9 @@ public class HomeFragment extends Fragment {
                 client.get(RECIPE_URL, params, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int i, Headers headers, JSON json) {
-                        Toast.makeText(getContext(), "you got chicken", Toast.LENGTH_SHORT).show();
                         JSONObject jsonObject = json.jsonObject;
                         try {
                             JSONArray hits = jsonObject.getJSONArray("hits");
-                            Log.i("HomeFrag: ", hits.toString());
                             recipes.addAll(Recipe.fromJsonArray(hits));
                             recipeAdapter.notifyDataSetChanged();
                         } catch (JSONException e) {
@@ -150,7 +152,7 @@ public class HomeFragment extends Fragment {
                         Toast.makeText(getContext(), "NO CHICKEN", Toast.LENGTH_SHORT).show();
                     }
                 });
-
+                
             }
         });
 
