@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FridgeMeal">
-        <activity android:name=".models.RecipeDetailActivity"></activity>
+        <activity android:name=".models.Feed"></activity>
+        <activity android:name=".models.RecipeDetailActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
