@@ -13,6 +13,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import edu.qc.seclass.fridgemeal.MainActivity;
@@ -48,12 +50,18 @@ public class RecipeAdapter extends  RecyclerView.Adapter<RecipeAdapter.ViewHolde
         return recipes.size();
     }
 
+    public void clearData() {
+        // clear the data
+        recipes.clear();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         RelativeLayout containerRecipe;
         TextView tvRecipeName;
         TextView tvCookingTime;
-        TextView tvDescription;
+        TextView tvCalories;
+        TextView tvServings;
         ImageView ivRecipeImage;
 
         public ViewHolder(@NonNull View itemView) {
@@ -62,7 +70,8 @@ public class RecipeAdapter extends  RecyclerView.Adapter<RecipeAdapter.ViewHolde
             containerRecipe = itemView.findViewById(R.id.containerRecipe);
             tvRecipeName = itemView.findViewById(R.id.tvRecipeName);
             tvCookingTime = itemView.findViewById(R.id.tvCookingTime);
-            tvDescription = itemView.findViewById(R.id.tvDescription);
+            tvCalories = itemView.findViewById(R.id.tvCalories);
+            tvServings = itemView.findViewById(R.id.tvServings);
             ivRecipeImage = itemView.findViewById(R.id.ivRecipeImage);
 
         }
@@ -71,15 +80,19 @@ public class RecipeAdapter extends  RecyclerView.Adapter<RecipeAdapter.ViewHolde
 
             tvRecipeName.setText(recipe.getRecipeName());
             tvCookingTime.setText(recipe.getCookingTime());
-            tvDescription.setText(recipe.getDescription());
+            tvCalories.setText(recipe.getCalories());
+            tvServings.setText(recipe.getServing());
+            Glide.with(context).load(recipe.getImagePath()).into(ivRecipeImage);
 
             containerRecipe.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(context, RecipeDetailActivity.class);
                     i.putExtra("recipeName", recipe.getRecipeName());
-                    i.putExtra("recipeDescription", recipe.getDescription());
-                    i.putExtra("cookingTime", recipe.getCookingTime());
+//                    i.putExtra("serving", recipe.getServing());
+//                    i.putExtra("calories", recipe.getCalories());
+//                    i.putExtra("cookingTime", recipe.getCookingTime());
+                    i.putExtra("ingredientArray", recipe.getIngredientArray().toString());
                     context.startActivity(i);
                 }
             });

@@ -1,25 +1,44 @@
 package edu.qc.seclass.fridgemeal.fragments;
 
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.codepath.asynchttpclient.AsyncHttpClient;
+import com.codepath.asynchttpclient.RequestParams;
+import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.StringJoiner;
 
 import edu.qc.seclass.fridgemeal.R;
 import edu.qc.seclass.fridgemeal.adapters.RecipeAdapter;
 import edu.qc.seclass.fridgemeal.models.Recipe;
+import okhttp3.Headers;
+
+import static android.content.Context.INPUT_METHOD_SERVICE;
+import static androidx.core.content.ContextCompat.getSystemService;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,11 +47,13 @@ import edu.qc.seclass.fridgemeal.models.Recipe;
  */
 public class HomeFragment extends Fragment {
 
+    public static final String RECIPE_URL = "https://api.edamam.com/search?app_id=194cadde&app_key=91faa5c0046d5686b9d896f97ba3435c";
     EditText etIngredient;
     Button btnAddIngredient;
     RecyclerView rvHomeRecipes;
     RecipeAdapter recipeAdapter;
-    List<Recipe> recipes = new LinkedList<>();
+    List<Recipe> recipes;
+    List<String> ingredients;
 
 
 
@@ -90,18 +111,68 @@ public class HomeFragment extends Fragment {
         btnAddIngredient = view.findViewById(R.id.btnAddIngredient);
         rvHomeRecipes = view.findViewById(R.id.rvHomeRecipes);
 
-        // dummy data
-        Recipe chick = new Recipe("Chicken", "34 mins", "You know it, you love it, it should be every meal. It's chicken");
-        Recipe beef = new Recipe("Beef", "100 mins", "You know it, you love it, it should be every meal. It's Beef");
-        Recipe pizza = new Recipe("Pizza", "5 mins", "You know it, you love it, it should be every meal. It's Pizza");
-        recipes.add(chick);
-        recipes.add(beef);
-        recipes.add(pizza);
+        recipes = new LinkedList<>();
+        ingredients = new LinkedList<>();
         // Create Adapter
         recipeAdapter = new RecipeAdapter(getContext(), recipes);
         // Set Adapter
         rvHomeRecipes.setAdapter(recipeAdapter);
         // Set layout manager
         rvHomeRecipes.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        btnAddIngredient.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onClick(View v) {
+
+                InputMethodManager imm = (InputMethodManager) getContext().getSystemService(getActivity().INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                recipeAdapter.clearData();
+                ingredients.add(etIngredient.getText().toString());
+                etIngredient.setText("");
+                String ingredientQuery = getStringOfIngredients(ingredients);
+                AsyncHttpClient client = new AsyncHttpClient();
+                RequestParams params = new RequestParams();
+                params.put("q", ingredientQuery);
+
+                client.get(RECIPE_URL, params, new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int i, Headers headers, JSON json) {
+                        JSONObject jsonObject = json.jsonObject;
+                        try {
+                            JSONArray hits = jsonObject.getJSONArray("hits");
+                            // Clears last inputted Ingredient if it returns an empty json object
+                            if (hits.length() == 0) {
+                                ingredients.remove(ingredients.size() - 1);
+                                Toast.makeText(getContext(), "Sorry we don't cover this ingredient yet.", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            recipes.addAll(Recipe.fromJsonArray(hits));
+                            recipeAdapter.notifyDataSetChanged();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int i, Headers headers, String s, Throwable throwable) {
+                        Toast.makeText(getContext(), "NO CHICKEN", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                
+            }
+        });
+
     }
+
+    public String getStringOfIngredients (List<String> ingredients) {
+        StringBuilder sb = new StringBuilder();
+        for (String ingredient: ingredients) {
+            sb.append(ingredient + " ");
+        }
+        return sb.toString().trim();
+    }
+
+
+
 }
