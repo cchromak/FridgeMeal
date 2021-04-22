@@ -125,6 +125,8 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+                InputMethodManager imm = (InputMethodManager) getContext().getSystemService(getActivity().INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 recipeAdapter.clearData();
                 ingredients.add(etIngredient.getText().toString());
                 etIngredient.setText("");
@@ -139,12 +141,17 @@ public class HomeFragment extends Fragment {
                         JSONObject jsonObject = json.jsonObject;
                         try {
                             JSONArray hits = jsonObject.getJSONArray("hits");
+                            // Clears last inputted Ingredient if it returns an empty json object
+                            if (hits.length() == 0) {
+                                ingredients.remove(ingredients.size() - 1);
+                                Toast.makeText(getContext(), "Sorry we don't cover this ingredient yet.", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
                             recipes.addAll(Recipe.fromJsonArray(hits));
                             recipeAdapter.notifyDataSetChanged();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
                     }
 
                     @Override

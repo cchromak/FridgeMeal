@@ -16,6 +16,7 @@ public class Recipe {
     private String serving;
     private String calories;
     private String imagePath;
+    private JSONArray ingredientArray;
 
     public Recipe(JSONObject jsonObject) throws JSONException { ;
         this.recipeName = jsonObject.getJSONObject("recipe").getString("label");
@@ -23,6 +24,7 @@ public class Recipe {
         this.serving = jsonObject.getJSONObject("recipe").getString("yield");
         this.calories = jsonObject.getJSONObject("recipe").getString("calories");
         this.imagePath = jsonObject.getJSONObject("recipe").getString("image");
+        this.ingredientArray = jsonObject.getJSONObject("recipe").getJSONArray("ingredientLines");
     }
 
     public static List<Recipe> fromJsonArray(JSONArray jsonArray) throws JSONException {
@@ -37,16 +39,8 @@ public class Recipe {
         return recipeName;
     }
 
-    public void setRecipeName(String recipeName) {
-        this.recipeName = recipeName;
-    }
-
     public String getCookingTime() {
         return getStringBeforePeriod(cookingTime) + " Mins";
-    }
-
-    public void setCookingTime(String cookingTime) {
-        this.cookingTime = cookingTime;
     }
 
     public String getServing() {
@@ -59,6 +53,10 @@ public class Recipe {
 
     public String getImagePath() {
         return imagePath;
+    }
+
+    public JSONArray getIngredientArray() {
+        return ingredientArray;
     }
 
     public String getStringBeforePeriod(String word) {
