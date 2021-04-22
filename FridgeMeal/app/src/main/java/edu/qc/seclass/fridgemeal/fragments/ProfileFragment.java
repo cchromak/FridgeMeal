@@ -1,5 +1,6 @@
 package edu.qc.seclass.fridgemeal.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,7 +10,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.parse.ParseQuery;
 
 import edu.qc.seclass.fridgemeal.R;
 
@@ -20,7 +26,19 @@ import edu.qc.seclass.fridgemeal.R;
  */
 public class ProfileFragment extends Fragment {
 
-    TextView tvGreeting;
+    private ImageView proPic;
+    private ImageView badge1;
+    private ImageView badge2;
+    private ImageView badge3;
+    private ImageView badge4;
+    private ImageView badge5;
+    private ImageView badge6;
+    private TextView description;
+    private TextView username;
+    private Button addBtn;
+
+    static String user_key
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -31,8 +49,12 @@ public class ProfileFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public ProfileFragment() {
+    //public ProfileFragment() {
         // Required empty public constructor
+   // }
+
+    public ProfileFragment() {
+       //
     }
 
     /**
@@ -44,12 +66,14 @@ public class ProfileFragment extends Fragment {
      * @return A new instance of fragment ProfileFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ProfileFragment newInstance(String param1, String param2) {
+    public ProfileFragment newInstance(String param1, String param2) {
         ProfileFragment fragment = new ProfileFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
+        Context context = this.getContext();
+        Toast.makeText(context, "test profile frag", Toast.LENGTH_SHORT).show();
         return fragment;
     }
 
