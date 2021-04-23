@@ -16,6 +16,7 @@ public class Recipe {
     private String serving;
     private String calories;
     private String imagePath;
+    private String directionsPath;
     private JSONArray ingredientArray;
 
     public Recipe(JSONObject jsonObject) throws JSONException { ;
@@ -24,6 +25,7 @@ public class Recipe {
         this.serving = jsonObject.getJSONObject("recipe").getString("yield");
         this.calories = jsonObject.getJSONObject("recipe").getString("calories");
         this.imagePath = jsonObject.getJSONObject("recipe").getString("image");
+        this.directionsPath = jsonObject.getJSONObject("recipe").getString("url");
         this.ingredientArray = jsonObject.getJSONObject("recipe").getJSONArray("ingredientLines");
     }
 
@@ -33,6 +35,10 @@ public class Recipe {
             recipes.add(new Recipe(jsonArray.getJSONObject(i)));
         }
         return recipes;
+    }
+
+    public String getDirectionsPath() {
+        return directionsPath;
     }
 
     public String getRecipeName() {
