@@ -28,6 +28,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        if(ParseUser.getCurrentUser() != null){
+            startMain();
+        }
+
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
@@ -77,10 +81,8 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(mContext, "Issue with login", Toast.LENGTH_LONG).show();
                     return;
                 }
-                //Go to main activity
-                Intent i = new Intent(mContext, MainActivity.class);
-                startActivity(i);
                 Toast.makeText(mContext, "Successful login", Toast.LENGTH_LONG).show();
+                startMain();
             }
         });
     }
@@ -95,11 +97,16 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(mContext, "Issue with login", Toast.LENGTH_LONG).show();
                     return;
                 }
-                //Go to main activity if successful
-                Intent i = new Intent(mContext, MainActivity.class);
-                startActivity(i);
                 Toast.makeText(mContext, "Successful sign up", Toast.LENGTH_LONG).show();
+                startMain();
             }
         });
+    }
+
+    private void startMain(){
+        //Go to main activity if successful
+        Intent i = new Intent(mContext, MainActivity.class);
+        startActivity(i);
+        finish();
     }
 }
