@@ -97,6 +97,8 @@ public class RecipeAdapter extends  RecyclerView.Adapter<RecipeAdapter.ViewHolde
 //                    i.putExtra("serving", recipe.getServing());
 //                    i.putExtra("calories", recipe.getCalories());
 //                    i.putExtra("cookingTime", recipe.getCookingTime());
+                    i.putExtra("directionsPath", recipe.getDirectionsPath());
+                    i.putExtra("image", recipe.getImagePath());
                     i.putExtra("ingredientArray", recipe.getIngredientArray().toString());
                     context.startActivity(i);
                 }
