@@ -116,6 +116,7 @@
         android:textSize="8sp" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rProfile"
         android:layout_width="388dp"
         android:layout_height="460dp"
         android:layout_below="@+id/addButton"

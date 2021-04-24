@@ -6,7 +6,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +18,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import edu.qc.seclass.fridgemeal.Feed;
 import edu.qc.seclass.fridgemeal.R;
+import edu.qc.seclass.fridgemeal.adapters.RecipeAdapter;
+import edu.qc.seclass.fridgemeal.models.Recipe;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,6 +48,11 @@ public class ProfileFragment extends Fragment {
     private TextView description;
     private TextView username;
     private Button addBtn;
+    private RecyclerView rProfile;
+    private List<Recipe> recipes;
+    private RecipeAdapter recipeAdapter;
+    private static String tag = "ProfileFragment";
+
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -52,7 +69,7 @@ public class ProfileFragment extends Fragment {
    // }
 
     public ProfileFragment() {
-       //
+        //Toast.makeText(getContext(), "profile", Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -94,7 +111,49 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        proPic = view.findViewById(R.id.profileImage);
+        addBtn = view.findViewById(R.id.addButton);
+        rProfile = view.findViewById(R.id.rProfile);
+        badge1 = view.findViewById(R.id.bImage1);
+        badge2 = view.findViewById(R.id.bImage2);
+        badge3 = view.findViewById(R.id.bImage3);
+        badge4 = view.findViewById(R.id.bImage4);
+        badge5 = view.findViewById(R.id.bImage5);
+        badge6 = view.findViewById(R.id.bImage6);
+        description = view.findViewById(R.id.profileDescription);
+        username = view.findViewById(R.id.profileUsername);
 
-        //tvGreeting = view.findViewById(R.id.idProfileGreeting);
+        recipes = new LinkedList<>();
+        // Create Adapter
+        recipeAdapter = new RecipeAdapter(getContext(), recipes);
+        // Set Adapter
+        rProfile.setAdapter(recipeAdapter);
+        // Set layout manager
+        rProfile.setLayoutManager(new LinearLayoutManager(getContext()));
+
+    }
+
+    protected void queryPosts() {
+        Toast.makeText(getContext(), "post here", Toast.LENGTH_SHORT).show();
+        ParseQuery<Feed> query = ParseQuery.getQuery(Feed.class);
+        query.include(Feed.key_user);
+        query.whereEqualTo(Feed.key_user, ParseUser.getCurrentUser());
+        query.setLimit(20);
+        query.addDescendingOrder(Feed.key_created);
+        query.findInBackground(new FindCallback<Feed>() {
+            @Override
+            public void done(List<Feed> recipes, ParseException e) {
+                if (e != null) {
+                    Log.e(tag, "not null!", e);
+                    return;
+                }
+                for (Feed feed : recipes) { //added username here
+                    //Log.i(tag, "post: " + recipes.getDescription() + ", by " + feed.getUser().getUsername());
+                    Toast.makeText(getContext(), "post here", Toast.LENGTH_SHORT).show();
+                }
+                recipes.addAll(recipes);
+                recipeAdapter.notifyDataSetChanged();
+            }
+        });
     }
 }
