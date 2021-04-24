@@ -13,7 +13,7 @@
         android:id="@+id/bImage6"
         android:layout_width="59dp"
         android:layout_height="51dp"
-        android:layout_below="@+id/txtUsername"
+        android:layout_below="@+id/profileUsername"
         android:layout_marginStart="9dp"
         android:layout_marginTop="11dp"
         android:layout_toEndOf="@+id/bImage5"
@@ -23,7 +23,7 @@
         android:id="@+id/bImage5"
         android:layout_width="59dp"
         android:layout_height="51dp"
-        android:layout_below="@+id/txtUsername"
+        android:layout_below="@+id/profileUsername"
         android:layout_marginStart="8dp"
         android:layout_marginTop="11dp"
         android:layout_toEndOf="@+id/bImage4"
@@ -33,7 +33,7 @@
         android:id="@+id/bImage4"
         android:layout_width="59dp"
         android:layout_height="51dp"
-        android:layout_below="@+id/txtUsername"
+        android:layout_below="@+id/profileUsername"
         android:layout_marginStart="9dp"
         android:layout_marginTop="11dp"
         android:layout_toEndOf="@+id/bImage3"
@@ -43,7 +43,7 @@
         android:id="@+id/bImage3"
         android:layout_width="59dp"
         android:layout_height="51dp"
-        android:layout_below="@+id/txtUsername"
+        android:layout_below="@+id/profileUsername"
         android:layout_marginStart="8dp"
         android:layout_marginTop="11dp"
         android:layout_toEndOf="@+id/bImage2"
@@ -53,7 +53,7 @@
         android:id="@+id/bImage2"
         android:layout_width="59dp"
         android:layout_height="51dp"
-        android:layout_below="@+id/txtUsername"
+        android:layout_below="@+id/profileUsername"
         android:layout_marginStart="5dp"
         android:layout_marginTop="11dp"
         android:layout_toEndOf="@+id/bImage1"
@@ -69,17 +69,17 @@
         tools:src="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/txtUsername"
+        android:id="@+id/profileUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/profileImage"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="6dp"
+        android:layout_marginStart="17dp"
         android:layout_marginTop="4dp"
         android:text="username" />
 
     <EditText
-        android:id="@+id/txtDescription"
+        android:id="@+id/profileDescription"
         android:layout_width="237dp"
         android:layout_height="79dp"
         android:layout_alignParentTop="true"
@@ -98,19 +98,31 @@
         android:id="@+id/bImage1"
         android:layout_width="59dp"
         android:layout_height="51dp"
-        android:layout_below="@+id/txtUsername"
+        android:layout_below="@+id/profileUsername"
         android:layout_alignParentStart="true"
         android:layout_marginStart="10dp"
         android:layout_marginTop="12dp"
         tools:src="@tools:sample/avatars" />
 
+    <Button
+        android:id="@+id/addButton"
+        android:layout_width="68dp"
+        android:layout_height="33dp"
+        android:layout_below="@+id/bImage6"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="26dp"
+        android:text="add"
+        android:textSize="8sp" />
+
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="390dp"
-        android:layout_height="625dp"
-        android:layout_alignParentStart="true"
+        android:id="@+id/rProfile"
+        android:layout_width="388dp"
+        android:layout_height="460dp"
+        android:layout_below="@+id/addButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="12dp"
-        android:layout_marginBottom="14dp" />
+        android:layout_marginTop="11dp"
+        android:layout_marginBottom="15dp" />
 
 </RelativeLayout>

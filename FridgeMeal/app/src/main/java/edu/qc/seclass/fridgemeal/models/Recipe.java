@@ -19,7 +19,7 @@ public class Recipe {
     private String directionsPath;
     private JSONArray ingredientArray;
 
-    public Recipe(JSONObject jsonObject) throws JSONException { ;
+    public Recipe(JSONObject jsonObject) throws JSONException {
         this.recipeName = jsonObject.getJSONObject("recipe").getString("label");
         this.cookingTime = jsonObject.getJSONObject("recipe").getString("totalTime");
         this.serving = jsonObject.getJSONObject("recipe").getString("yield");

@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -14,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.parse.ParseUser;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -50,7 +52,11 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.action_logout:
                         fragment = new HomeFragment();
-                        Toast.makeText(MainActivity.this, "needs to direct to login", Toast.LENGTH_SHORT).show();
+                        ParseUser.logOut();
+                        ParseUser currentUser = ParseUser.getCurrentUser();
+                        Intent i = new Intent(MainActivity.this, LoginActivity.class);
+                        startActivity(i);
+                        Toast.makeText(MainActivity.this, "Logout Successful", Toast.LENGTH_SHORT).show();
                         break;
                     default:
                         fragment = new HomeFragment();
