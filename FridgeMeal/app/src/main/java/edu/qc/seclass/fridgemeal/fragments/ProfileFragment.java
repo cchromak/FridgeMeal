@@ -106,11 +106,11 @@ public class ProfileFragment extends Fragment {
 
     protected void queryUser() {
         Toast.makeText(getContext(), "user here", Toast.LENGTH_SHORT).show();
-        ParseQuery<User> query = ParseQuery.getQuery(User.class);
-        //query.include(User.key_user);
-        query.whereEqualTo(User.key_user, ParseUser.getCurrentUser());
+        ParseQuery<User> check = ParseQuery.getQuery(User.class);
+        check.include(User.key_user);
+        check.whereEqualTo(User.key_user, ParseUser.getCurrentUser());
         //query.setLimit(1);
-        query.findInBackground(new FindCallback<User>() {
+        check.findInBackground(new FindCallback<User>() {
             @Override
             public void done(List<User> users, ParseException e) {
                 if (e != null) {
@@ -121,8 +121,8 @@ public class ProfileFragment extends Fragment {
                     Log.i(tag, "user: " + user.getDescription() + ", by " + user.getUser().getUsername());
                     Toast.makeText(getContext(), "post here", Toast.LENGTH_SHORT).show();
                 }
-                //userAdapter.clear();
-                //userAdapter.addAll(users);
+                userAdapter.clear();
+                userAdapter.addAll(users);
             }
         });
     }

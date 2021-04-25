@@ -13,8 +13,8 @@ public class ParseApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        ParseObject.registerSubclass(Feed.class);
         ParseObject.registerSubclass(User.class);
+        ParseObject.registerSubclass(Feed.class);
 
         Parse.initialize(new Parse.Configuration.Builder(this)
         .applicationId("25HWFAlMYWFHlf77cYScUCm54RbLijH0oqjFcgen")
