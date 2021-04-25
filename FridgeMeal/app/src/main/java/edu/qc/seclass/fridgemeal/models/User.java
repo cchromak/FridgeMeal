@@ -1,16 +1,16 @@
-package edu.qc.seclass.fridgemeal;
+package edu.qc.seclass.fridgemeal.models;
 
 import com.parse.ParseClassName;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
-@ParseClassName("Post")
-public class Feed  extends ParseObject{
-    public static final String key_description = "description";
-    public static final String key_image = "image";
+@ParseClassName("Users")
+public class User extends ParseObject{
+    public static final String key_description = "userInfo";
+    public static final String key_image = "userImage";
     public static final String key_user = "user";
-    public static final String key_created = "createdAt";
+    //public static final String key_username = "username";
 
     public String getDescription() {
         return getString(key_description);
@@ -36,5 +36,4 @@ public class Feed  extends ParseObject{
         put(key_user, user);
     }
 
-    //public String getCreated(){ return getString(key_created); }
 }
