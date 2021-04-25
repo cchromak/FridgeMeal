@@ -9,120 +9,29 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <ImageView
-        android:id="@+id/bImage6"
-        android:layout_width="59dp"
-        android:layout_height="51dp"
-        android:layout_below="@+id/profileUsername"
-        android:layout_marginStart="9dp"
-        android:layout_marginTop="11dp"
-        android:layout_toEndOf="@+id/bImage5"
-        tools:src="@tools:sample/avatars" />
-
-    <ImageView
-        android:id="@+id/bImage5"
-        android:layout_width="59dp"
-        android:layout_height="51dp"
-        android:layout_below="@+id/profileUsername"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="11dp"
-        android:layout_toEndOf="@+id/bImage4"
-        tools:src="@tools:sample/avatars" />
-
-    <ImageView
-        android:id="@+id/bImage4"
-        android:layout_width="59dp"
-        android:layout_height="51dp"
-        android:layout_below="@+id/profileUsername"
-        android:layout_marginStart="9dp"
-        android:layout_marginTop="11dp"
-        android:layout_toEndOf="@+id/bImage3"
-        tools:src="@tools:sample/avatars" />
-
-    <ImageView
-        android:id="@+id/bImage3"
-        android:layout_width="59dp"
-        android:layout_height="51dp"
-        android:layout_below="@+id/profileUsername"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="11dp"
-        android:layout_toEndOf="@+id/bImage2"
-        tools:src="@tools:sample/avatars" />
-
-    <ImageView
-        android:id="@+id/bImage2"
-        android:layout_width="59dp"
-        android:layout_height="51dp"
-        android:layout_below="@+id/profileUsername"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="11dp"
-        android:layout_toEndOf="@+id/bImage1"
-        tools:src="@tools:sample/avatars" />
-
-    <ImageView
-        android:id="@+id/profileImage"
-        android:layout_width="wrap_content"
-        android:layout_height="96dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="14dp"
-        tools:src="@tools:sample/avatars" />
-
-    <TextView
-        android:id="@+id/profileUsername"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/profileImage"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="17dp"
-        android:layout_marginTop="4dp"
-        android:text="username" />
-
-    <EditText
-        android:id="@+id/profileDescription"
-        android:layout_width="237dp"
-        android:layout_height="79dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="38dp"
-        android:layout_toEndOf="@+id/profileImage"
-        android:ems="10"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
-        android:textSize="10sp"
-        tools:text="This is a general description of the inddividuals profile, of themselves, or whatever you choose to put here, I'm sure I've made at least 50 typos by now" />
-
-    <ImageView
-        android:id="@+id/bImage1"
-        android:layout_width="59dp"
-        android:layout_height="51dp"
-        android:layout_below="@+id/profileUsername"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="12dp"
-        tools:src="@tools:sample/avatars" />
-
-    <Button
-        android:id="@+id/addButton"
-        android:layout_width="68dp"
-        android:layout_height="33dp"
-        android:layout_below="@+id/bImage6"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="26dp"
-        android:text="add"
-        android:textSize="8sp" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rProfile"
-        android:layout_width="388dp"
-        android:layout_height="460dp"
-        android:layout_below="@+id/addButton"
+        android:layout_width="wrap_content"
+        android:layout_height="591dp"
+        android:layout_below="@+id/rUser"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="2dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="11dp"
-        android:layout_marginBottom="15dp" />
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp" />
 
 </RelativeLayout>

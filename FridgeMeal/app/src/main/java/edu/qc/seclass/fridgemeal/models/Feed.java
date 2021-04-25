@@ -1,15 +1,16 @@
-package edu.qc.seclass.fridgemeal;
+package edu.qc.seclass.fridgemeal.models;
 
 import com.parse.ParseClassName;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
-@ParseClassName("Post")
+@ParseClassName("Recipes")
 public class Feed  extends ParseObject{
     public static final String key_description = "description";
-    public static final String key_image = "image";
+    public static final String key_image = "recipeImage";
     public static final String key_user = "user";
+    public static final String key_recipe = "recipeName";
     public static final String key_created = "createdAt";
 
     public String getDescription() {
@@ -20,11 +21,27 @@ public class Feed  extends ParseObject{
         put(key_description, description);
     }
 
-    public ParseFile getImage() {
+    public String getRecipe() {
+        return getString(key_recipe);
+    }
+
+    public void setRecipe(String recipeName){
+        put(key_recipe, recipeName);
+    }
+
+    public ParseFile getRecipeImage() {
         return getParseFile(key_image);
     }
 
-    public void setImage(ParseFile parseFile){
+    public ParseFile getUserImage() {
+        return getParseFile(key_image);
+    }
+
+    public void setRecipeImage(ParseFile parseFile){
+        put(key_image, parseFile);
+    }
+
+    public void setUserImage(ParseFile parseFile){
         put(key_image, parseFile);
     }
 
@@ -36,5 +53,4 @@ public class Feed  extends ParseObject{
         put(key_user, user);
     }
 
-    //public String getCreated(){ return getString(key_created); }
 }

@@ -22,23 +22,22 @@ import android.widget.Toast;
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.RequestParams;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.StringJoiner;
 
+import edu.qc.seclass.fridgemeal.models.Feed;
 import edu.qc.seclass.fridgemeal.R;
 import edu.qc.seclass.fridgemeal.adapters.RecipeAdapter;
 import edu.qc.seclass.fridgemeal.models.Recipe;
 import okhttp3.Headers;
-
-import static android.content.Context.INPUT_METHOD_SERVICE;
-import static androidx.core.content.ContextCompat.getSystemService;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -172,7 +171,5 @@ public class HomeFragment extends Fragment {
         }
         return sb.toString().trim();
     }
-
-
 
 }
