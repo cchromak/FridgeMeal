@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.RequestParams;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -45,7 +46,7 @@ import okhttp3.Headers;
 public class HomeFragment extends Fragment {
 
     public static final String RECIPE_URL = "https://api.edamam.com/search?app_id=194cadde&app_key=91faa5c0046d5686b9d896f97ba3435c";
-    EditText etIngredient;
+    TextInputEditText etIngredient;
     Button btnAddIngredient;
     RecyclerView rvHomeRecipes;
     RecipeAdapter recipeAdapter;
@@ -84,7 +85,7 @@ public class HomeFragment extends Fragment {
                 InputMethodManager imm = (InputMethodManager) getContext().getSystemService(getActivity().INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 recipeAdapter.clearData();
-                ingredients.add(etIngredient.getText().toString());
+                ingredients.add(etIngredient.getEditableText().toString());
                 etIngredient.setText("");
                 String ingredientQuery = getStringOfIngredients(ingredients);
                 AsyncHttpClient client = new AsyncHttpClient();

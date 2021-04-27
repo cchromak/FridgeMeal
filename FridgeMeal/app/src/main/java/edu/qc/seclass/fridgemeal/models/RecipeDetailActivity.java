@@ -58,6 +58,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         }
 
         Glide.with(RecipeDetailActivity.this).load(imagePath).into(ivRecipeImageDetail);
+
         tvRecipeNameDetail.setText(recipeName);
 
         btnRecipeDirections.setOnClickListener(new View.OnClickListener() {
