@@ -12,12 +12,13 @@
 
 
         android:layout_height="match_parent"
+        android:layout_above="@+id/textinputlayout"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="200px" />
+        android:layout_marginBottom="5dp" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textinputlayout"
@@ -37,19 +38,19 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etIngredient"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
     <Button
         android:id="@+id/btnAddIngredient"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="55dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="4dp"
         android:layout_marginEnd="1dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="10dp"
         android:text="Add" />
 
 </RelativeLayout>
