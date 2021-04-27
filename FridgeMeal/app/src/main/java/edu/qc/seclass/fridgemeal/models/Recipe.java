@@ -12,18 +12,18 @@ import java.util.List;
 public class Recipe {
 
     private String recipeName;
-    private String cookingTime;
-    private String serving;
-    private String calories;
+    private int cookingTime;
+    private int serving;
+    private int calories;
     private String imagePath;
     private String directionsPath;
     private JSONArray ingredientArray;
 
     public Recipe(JSONObject jsonObject) throws JSONException {
         this.recipeName = jsonObject.getJSONObject("recipe").getString("label");
-        this.cookingTime = jsonObject.getJSONObject("recipe").getString("totalTime");
-        this.serving = jsonObject.getJSONObject("recipe").getString("yield");
-        this.calories = jsonObject.getJSONObject("recipe").getString("calories");
+        this.cookingTime = jsonObject.getJSONObject("recipe").getInt("totalTime");
+        this.serving = jsonObject.getJSONObject("recipe").getInt("yield");
+        this.calories = jsonObject.getJSONObject("recipe").getInt("calories");
         this.imagePath = jsonObject.getJSONObject("recipe").getString("image");
         this.directionsPath = jsonObject.getJSONObject("recipe").getString("url");
         this.ingredientArray = jsonObject.getJSONObject("recipe").getJSONArray("ingredientLines");
@@ -46,15 +46,16 @@ public class Recipe {
     }
 
     public String getCookingTime() {
-        return getStringBeforePeriod(cookingTime) + " Mins";
+        if (cookingTime != 0) return Integer.toString(cookingTime) + " Mins";
+        return "";
     }
 
     public String getServing() {
-        return getStringBeforePeriod(serving) + " Servings";
+        return Integer.toString(serving) + " Servings";
     }
 
     public String getCalories() {
-        return getStringBeforePeriod(calories) + " Calories";
+        return Integer.toString(calories) + " Calories";
     }
 
     public String getImagePath() {
@@ -65,16 +66,5 @@ public class Recipe {
         return ingredientArray;
     }
 
-    public String getStringBeforePeriod(String word) {
-        StringBuilder sb = new StringBuilder();
-        for (char c: word.toCharArray()) {
-            if(c == '.') {
-                return sb.toString();
-            } else {
-                sb.append(c);
-            }
-        }
-        return sb.toString();
-    }
 }
 

@@ -80,11 +80,11 @@ public class RecipeAdapter extends  RecyclerView.Adapter<RecipeAdapter.ViewHolde
         public void bind(Recipe recipe) {
 
             tvRecipeName.setText(recipe.getRecipeName());
-            tvCookingTime.setText(recipe.getCookingTime());
             tvCalories.setText(recipe.getCalories());
             tvServings.setText(recipe.getServing());
             Glide.with(context).load(recipe.getImagePath()).into(ivRecipeImage);
             ivRecipeImage.setClipToOutline(true);
+            tvCookingTime.setText(recipe.getCookingTime());
 
             containerRecipe.setOnClickListener(new View.OnClickListener() {
                 @Override
