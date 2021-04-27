@@ -84,6 +84,7 @@ public class RecipeAdapter extends  RecyclerView.Adapter<RecipeAdapter.ViewHolde
             tvCalories.setText(recipe.getCalories());
             tvServings.setText(recipe.getServing());
             Glide.with(context).load(recipe.getImagePath()).into(ivRecipeImage);
+            ivRecipeImage.setClipToOutline(true);
 
             containerRecipe.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -8,26 +8,38 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvHomeRecipes"
-        android:layout_width="398dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
 
 
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp" />
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="200px" />
 
-    <EditText
-        android:id="@+id/etIngredient"
-        android:layout_width="307dp"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textinputlayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@id/btnAddIngredient"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="10dp"
         android:layout_marginBottom="10dp"
+        android:layout_toStartOf="@id/btnAddIngredient"
         android:ems="10"
         android:hint="Ingredient"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etIngredient"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <Button
         android:id="@+id/btnAddIngredient"
@@ -36,9 +48,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="4dp"
-        android:layout_marginEnd="7dp"
+        android:layout_marginEnd="1dp"
         android:layout_marginBottom="12dp"
-        android:layout_toEndOf="@+id/etIngredient"
         android:text="Add" />
 
 </RelativeLayout>
