@@ -56,6 +56,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="5dp"
-        android:text="View Directions" />
+        android:text="View Directions"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
 
 </RelativeLayout>
