@@ -1,12 +1,14 @@
 package edu.qc.seclass.fridgemeal;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -51,12 +53,28 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new RecipesFragment();
                         break;
                     case R.id.action_logout:
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                        builder.setMessage("Are you sure you want to log out?")
+                                .setTitle("Until next time, friend!")
+                                .setPositiveButton("Logout Out", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        ParseUser.logOut();
+                                        ParseUser currentUser = ParseUser.getCurrentUser();
+                                        Intent i = new Intent(MainActivity.this, LoginActivity.class);
+                                        startActivity(i);
+                                        Toast.makeText(MainActivity.this, "Logout Successful", Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .setNegativeButton("Stay!", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+
+                                    }
+                                });
+                        // Create the AlertDialog object and return it
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
                         fragment = new HomeFragment();
-                        ParseUser.logOut();
-                        ParseUser currentUser = ParseUser.getCurrentUser();
-                        Intent i = new Intent(MainActivity.this, LoginActivity.class);
-                        startActivity(i);
-                        Toast.makeText(MainActivity.this, "Logout Successful", Toast.LENGTH_SHORT).show();
                         break;
                     default:
                         fragment = new HomeFragment();
