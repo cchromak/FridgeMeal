@@ -4,63 +4,51 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.GestureDetectorCompat;
+import androidx.core.view.MotionEventCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
+
+import java.util.LinkedList;
+import java.util.List;
 
 import edu.qc.seclass.fridgemeal.R;
+import edu.qc.seclass.fridgemeal.adapters.FeedAdapter;
+import edu.qc.seclass.fridgemeal.adapters.UserAdapter;
+import edu.qc.seclass.fridgemeal.models.Feed;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link RecipesFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class RecipesFragment extends Fragment {
+public class RecipesFragment extends Fragment{
 
-    TextView tvRecipesGreeting;
+    private RecyclerView rvRecipes;
+    private Button btnYourRecipes;
+    private Button btnFriendsRecipes;
+    private Button btnFavoriteRecipes;
+    private FeedAdapter feedAdapter;
+    protected List<Feed> feeds;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static String tag = "RecipesFragment";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public RecipesFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RecipesFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static RecipesFragment newInstance(String param1, String param2) {
-        RecipesFragment fragment = new RecipesFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -72,7 +60,85 @@ public class RecipesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        rvRecipes = view.findViewById(R.id.rvRecipes);
+        btnYourRecipes = view.findViewById(R.id.btnYourRecipes);
+        btnFriendsRecipes = view.findViewById(R.id.btnFriendsRecipes);
+        btnFavoriteRecipes = view.findViewById(R.id.btnFavoriteRecipes);
+        feeds = new LinkedList<>();
 
-        tvRecipesGreeting = view.findViewById(R.id.idRecipesGreeting);
+        // Create Adapter
+        feedAdapter = new FeedAdapter(getContext(), feeds);
+
+        // Set Adapter
+        rvRecipes.setAdapter(feedAdapter);
+
+        // Set layout manager
+        rvRecipes.setLayoutManager(new LinearLayoutManager(getContext()));
+        queryPosts();
+
+
+        btnYourRecipes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                queryPosts();
+            }
+        });
+
+        btnFriendsRecipes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                queryFriendsPosts();
+            }
+        });
+
+        btnFavoriteRecipes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "ok", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
+
+
+
+
+
+    protected void queryPosts() {
+        ParseQuery<Feed> query = ParseQuery.getQuery(Feed.class);
+        query.include(Feed.key_user);
+        query.setLimit(20);
+        query.whereEqualTo(Feed.key_user, ParseUser.getCurrentUser());
+        query.addDescendingOrder(Feed.key_created);
+        query.findInBackground(new FindCallback<Feed>() {
+            @Override
+            public void done(List<Feed> feeds, ParseException e) {
+                if (e != null) {
+                    Log.e(tag, "not null!", e);
+                    return;
+                }
+                feedAdapter.clear();
+                feedAdapter.addAll(feeds);
+            }
+        });
+    }
+
+    protected void queryFriendsPosts() {
+        ParseQuery<Feed> query = ParseQuery.getQuery(Feed.class);
+        query.include(Feed.key_user);
+        query.setLimit(20);
+        query.addDescendingOrder(Feed.key_created);
+        query.findInBackground(new FindCallback<Feed>() {
+            @Override
+            public void done(List<Feed> feeds, ParseException e) {
+                if (e != null) {
+                    Log.e(tag, "not null!", e);
+                    return;
+                }
+                feedAdapter.clear();
+                feedAdapter.addAll(feeds);
+            }
+        });
+    }
+
+
 }
