@@ -6,14 +6,58 @@
     android:layout_height="match_parent"
     tools:context=".fragments.RecipesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/idRecipesGreeting"
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:id="@+id/llrecipeFragmentButtons"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:layout_marginTop="0dp">
+        <Space
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+        <Button
+            android:id="@+id/btnYourRecipes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yours"/>
+        <Space
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+        <Button
+            android:id="@+id/btnFriendsRecipes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Friends"/>
+        <Space
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+        <Button
+            android:id="@+id/btnFavoriteRecipes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Favorite"/>
+        <Space
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvRecipes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/llrecipeFragmentButtons"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="312dp"
-        android:text="Hello i am all da recipes" />
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp" />
+
 
 </RelativeLayout>
