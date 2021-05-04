@@ -12,13 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.parse.ParseFile;
-import com.parse.ParseUser;
 
 import java.util.List;
 
 import edu.qc.seclass.fridgemeal.models.Feed;
 import edu.qc.seclass.fridgemeal.R;
-import edu.qc.seclass.fridgemeal.models.User;
 
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
 
@@ -72,17 +70,17 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     class ViewHolder extends RecyclerView.ViewHolder {
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            recipeCreator = itemView.findViewById(R.id.recipeCreator);
-            recipeImage = itemView.findViewById(R.id.recipeImage);
-            recipeDescription = itemView.findViewById(R.id.recipeDescript);
-            recipeName = itemView.findViewById(R.id.recipeName);
+            recipeCreator = itemView.findViewById(R.id.feedUser);
+            recipeImage = itemView.findViewById(R.id.userImage);
+            recipeDescription = itemView.findViewById(R.id.userStatus);
+            //recipeName = itemView.findViewById(R.id.recipeName);
 
         }
 
         public void bind(Feed post) {
             recipeDescription.setText(post.getDescription());
             recipeCreator.setText(post.getUser().getUsername());
-            recipeName.setText(post.getRecipe());
+            //recipeName.setText(post.getRecipe());
             ParseFile recipeImageFile = post.getRecipeImage();
             if(recipeImageFile != null) {
                 Glide.with(context).load(post.getRecipeImage().getUrl()).into(recipeImage);

@@ -12,6 +12,10 @@ public class Feed  extends ParseObject{
     public static final String key_user = "user";
     public static final String key_recipe = "recipeName";
     public static final String key_created = "createdAt";
+    public static final String key_time = "cookTime";
+    public static final String key_calories = "calories";
+    public static final String key_servings = "servingSize";
+    
 
     public String getDescription() {
         return getString(key_description);

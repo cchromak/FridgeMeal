@@ -8,11 +8,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,10 +31,12 @@ import com.parse.ParseUser;
 import java.util.LinkedList;
 import java.util.List;
 
+import edu.qc.seclass.fridgemeal.adapters.ProfileAdapter;
 import edu.qc.seclass.fridgemeal.adapters.UserAdapter;
 import edu.qc.seclass.fridgemeal.models.Feed;
 import edu.qc.seclass.fridgemeal.R;
 import edu.qc.seclass.fridgemeal.adapters.FeedAdapter;
+import edu.qc.seclass.fridgemeal.models.Profile;
 import edu.qc.seclass.fridgemeal.models.User;
 
 
@@ -39,11 +44,13 @@ public class ProfileFragment extends Fragment {
 
     private RecyclerView rProfile;
     private RecyclerView rUser;
-    protected List<Feed> feeds;
+    protected List<User> posts;
     protected List<User> user;
     private UserAdapter userAdapter;
-    private FeedAdapter feedAdapter;
+    private ProfileAdapter profileAdapter;
     private static String tag = "ProfileFragment";
+    private Button btnPost;
+    private EditText compose;
 
 
     public ProfileFragment() {
@@ -64,42 +71,91 @@ public class ProfileFragment extends Fragment {
         rProfile = view.findViewById(R.id.rProfile);
         rUser = view.findViewById(R.id.rUser);
 
-        feeds = new LinkedList<>();
+        posts = new LinkedList<>();
         user = new LinkedList<>();
         // Create Adapter
-        feedAdapter = new FeedAdapter(getContext(), feeds);
         userAdapter = new UserAdapter(getContext(), user);
+        profileAdapter = new ProfileAdapter(getContext(), posts);
         // Set Adapter
-        rProfile.setAdapter(feedAdapter);
+        rProfile.setAdapter(profileAdapter);
         rUser.setAdapter(userAdapter);
         // Set layout manager
         rProfile.setLayoutManager(new LinearLayoutManager(getContext()));
         rUser.setLayoutManager(new LinearLayoutManager(getContext()));
+        btnPost = view.findViewById(R.id.btnAdd);
+        compose = view.findViewById(R.id.eText);
+        btnPost.setEnabled(false);
 
         queryUser();
         queryPosts();
 
+        compose.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Fires right as the text is being changed (even supplies the range of text)
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // Fires right before text is changing
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // Fires right after the text has changed
+                if(s.length() > 300 || s.length() < 1){
+                    Toast.makeText(getContext(), "We can't really chirp that!", Toast.LENGTH_SHORT).show();
+                    btnPost.setEnabled(false);
+                }
+                else btnPost.setEnabled(true);
+            }
+        });
+
+        btnPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String content = compose.getText().toString();
+                if(content.isEmpty()){
+                    Toast.makeText(getContext(), "Can't tweet nothin'!", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if(content.length() > 400){
+                    Toast.makeText(getContext(), "Whoa there! Too many chirpers!", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                //publish tweet via api call
+                else {
+                    //btnPost.isEnabled();
+                    user;
+                    Toast.makeText(getContext(), "Status sent!", Toast.LENGTH_LONG).show();
+                }
+            }
+
+        });
+
     }
 
     protected void queryPosts() {
-        Toast.makeText(getContext(), "post here", Toast.LENGTH_SHORT).show();
-        ParseQuery<Feed> query = ParseQuery.getQuery(Feed.class);
-        query.include(Feed.key_user);
+        Toast.makeText(getContext(), "status here", Toast.LENGTH_SHORT).show();
+        ParseQuery<User> query = ParseQuery.getQuery(User.class);
+        query.include(User.key_user);
+        //check.whereEqualTo(User.key_user, ParseUser.getCurrentUser());
         query.setLimit(20);
-        query.addDescendingOrder(Feed.key_created);
-        query.findInBackground(new FindCallback<Feed>() {
+        query.findInBackground(new FindCallback<User>() {
             @Override
-            public void done(List<Feed> feeds, ParseException e) {
+            public void done(List<User> posts, ParseException e) {
                 if (e != null) {
                     Log.e(tag, "not null!", e);
                     return;
                 }
-                for (Feed feed : feeds) { //added username here
-                    Log.i(tag, "feed: " + feed.getDescription() + ", by " + feed.getUser().getUsername());
+                for (User user : posts) { //added username here
+                    Log.i(tag, "user: " + user.getStatus() + ", by " + user.getUser().getUsername());
                     Toast.makeText(getContext(), "post here", Toast.LENGTH_SHORT).show();
                 }
-                feedAdapter.clear();
-                feedAdapter.addAll(feeds);
+                profileAdapter.clear();
+                profileAdapter.addAll(posts);
             }
         });
     }

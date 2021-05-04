@@ -10,7 +10,8 @@ public class User extends ParseObject{
     public static final String key_description = "userInfo";
     public static final String key_image = "userImage";
     public static final String key_user = "user";
-    //public static final String key_username = "username";
+    public static final String key_status = "status";
+    public static String key_created = "createdAt";
 
     public String getDescription() {
         return getString(key_description);
@@ -34,6 +35,14 @@ public class User extends ParseObject{
 
     public void setUser(ParseUser user){
         put(key_user, user);
+    }
+
+    public String getStatus(){
+        return getString(key_status);
+    }
+
+    public void setStatus(String status){
+        put(key_status, status);
     }
 
 }

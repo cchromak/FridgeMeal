@@ -12,20 +12,20 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rProfile"
         android:layout_width="wrap_content"
-        android:layout_height="591dp"
-        android:layout_below="@+id/rUser"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnAdd"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="1dp"
         android:layout_marginEnd="0dp"
         android:layout_marginBottom="2dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rUser"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="151dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
@@ -33,5 +33,29 @@
         android:layout_marginStart="1dp"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="0dp" />
+
+    <EditText
+        android:id="@+id/eText"
+        android:layout_width="match_parent"
+        android:layout_height="69dp"
+        android:layout_below="@+id/rUser"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="1dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine" />
+
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_width="102dp"
+        android:layout_height="38dp"
+        android:layout_below="@+id/eText"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="-5dp"
+        android:layout_marginEnd="4dp"
+        android:lineSpacingExtra="10sp"
+        android:text="Update"
+        android:textSize="8sp" />
 
 </RelativeLayout>

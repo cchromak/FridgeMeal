@@ -6,6 +6,7 @@ import com.parse.Parse;
 import com.parse.ParseObject;
 
 import edu.qc.seclass.fridgemeal.models.Feed;
+import edu.qc.seclass.fridgemeal.models.Profile;
 import edu.qc.seclass.fridgemeal.models.User;
 
 public class ParseApplication extends Application {
@@ -15,6 +16,7 @@ public class ParseApplication extends Application {
 
         ParseObject.registerSubclass(User.class);
         ParseObject.registerSubclass(Feed.class);
+        ParseObject.registerSubclass(Profile.class);
 
         Parse.initialize(new Parse.Configuration.Builder(this)
         .applicationId("25HWFAlMYWFHlf77cYScUCm54RbLijH0oqjFcgen")
