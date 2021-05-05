@@ -15,6 +15,7 @@ public class Feed  extends ParseObject{
     public static final String key_time = "cookTime";
     public static final String key_calories = "calories";
     public static final String key_servings = "servingSize";
+    public static final String KEY_OBJECT_ID = "objectId";
     
 
     public String getDescription() {
@@ -56,5 +57,6 @@ public class Feed  extends ParseObject{
     public void setUser(ParseUser user){
         put(key_user, user);
     }
+    public String getObjectId(){return getString(KEY_OBJECT_ID);}
 
 }

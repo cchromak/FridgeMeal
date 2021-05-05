@@ -5,6 +5,7 @@ import android.app.Application;
 import com.parse.Parse;
 import com.parse.ParseObject;
 
+import edu.qc.seclass.fridgemeal.models.Favorites;
 import edu.qc.seclass.fridgemeal.models.Feed;
 import edu.qc.seclass.fridgemeal.models.Profile;
 import edu.qc.seclass.fridgemeal.models.User;
@@ -17,6 +18,7 @@ public class ParseApplication extends Application {
         ParseObject.registerSubclass(User.class);
         ParseObject.registerSubclass(Feed.class);
         ParseObject.registerSubclass(Profile.class);
+        ParseObject.registerSubclass(Favorites.class);
 
         Parse.initialize(new Parse.Configuration.Builder(this)
         .applicationId("25HWFAlMYWFHlf77cYScUCm54RbLijH0oqjFcgen")

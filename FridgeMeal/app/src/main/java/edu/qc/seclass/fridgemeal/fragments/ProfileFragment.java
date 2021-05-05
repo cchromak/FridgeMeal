@@ -128,7 +128,7 @@ public class ProfileFragment extends Fragment {
                 //publish tweet via api call
                 else {
                     //btnPost.isEnabled();
-                    user;
+                    //user;
                     Toast.makeText(getContext(), "Status sent!", Toast.LENGTH_LONG).show();
                 }
             }
@@ -182,5 +182,6 @@ public class ProfileFragment extends Fragment {
             }
         });
     }
+
 
 }

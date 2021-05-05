@@ -15,6 +15,7 @@ import com.parse.ParseFile;
 
 import java.util.List;
 
+import edu.qc.seclass.fridgemeal.models.Favorites;
 import edu.qc.seclass.fridgemeal.models.Feed;
 import edu.qc.seclass.fridgemeal.R;
 

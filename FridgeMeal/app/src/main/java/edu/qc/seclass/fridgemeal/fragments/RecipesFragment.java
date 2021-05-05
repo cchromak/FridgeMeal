@@ -22,16 +22,21 @@ import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import edu.qc.seclass.fridgemeal.R;
 import edu.qc.seclass.fridgemeal.adapters.FeedAdapter;
 import edu.qc.seclass.fridgemeal.adapters.UserAdapter;
+import edu.qc.seclass.fridgemeal.models.Favorites;
 import edu.qc.seclass.fridgemeal.models.Feed;
+import edu.qc.seclass.fridgemeal.models.Recipe;
+import edu.qc.seclass.fridgemeal.models.User;
 
 public class RecipesFragment extends Fragment{
 
@@ -95,6 +100,7 @@ public class RecipesFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(), "ok", Toast.LENGTH_SHORT).show();
+                queryFavoriteRecipes();
             }
         });
     }
@@ -138,6 +144,29 @@ public class RecipesFragment extends Fragment{
                 feedAdapter.addAll(feeds);
             }
         });
+    }
+    protected void queryFavoriteRecipes(){
+        ParseQuery<Favorites> favorites = ParseQuery.getQuery(Favorites.class);
+        ParseUser user = ParseUser.getCurrentUser();
+        ParseQuery<User> thisUser = ParseQuery.getQuery(User.class);
+        thisUser.whereEqualTo(User.key_user, user.getObjectId());
+
+        Log.i(tag, user.getObjectId());
+        favorites.whereEqualTo(Favorites.KEY_USER_PK, user);
+        ParseQuery<Feed> feedParseQuery = ParseQuery.getQuery(Feed.class);
+        feedParseQuery.whereMatchesKeyInQuery(Feed.KEY_OBJECT_ID, Favorites.KEY_RECIPE_FK, favorites);
+        feedParseQuery.findInBackground(new FindCallback<Feed>() {
+            @Override
+            public void done(List<Feed> objects, ParseException e) {
+                if (e != null){
+                    Log.e(tag, "", e);
+                    return;
+                }
+
+                Log.i(tag, "test " + Integer.toString(objects.size()));
+            }
+        });
+
     }
 
 
