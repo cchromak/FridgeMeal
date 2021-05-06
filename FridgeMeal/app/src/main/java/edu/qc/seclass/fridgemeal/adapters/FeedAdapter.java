@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,11 +24,11 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
 
     private Context context;
     private List<Feed> feeds;
-    private TextView recipeCreator;
-    private TextView recipeDescription;
-    private TextView recipeName;
-    private ImageView recipeImage;
-    //private User user;
+    TextView tvRecipeName;
+    TextView tvCookingTime;
+    TextView tvCalories;
+    TextView tvServings;
+    ImageView ivRecipeImage;
 
 
     public FeedAdapter(Context context, List<Feed> feeds){
@@ -39,7 +40,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_feed, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_recipe, parent, false);
         return new ViewHolder(view);
     }
 
@@ -71,20 +72,22 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     class ViewHolder extends RecyclerView.ViewHolder {
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            recipeCreator = itemView.findViewById(R.id.feedUser);
-            recipeImage = itemView.findViewById(R.id.userImage);
-            recipeDescription = itemView.findViewById(R.id.userStatus);
-            //recipeName = itemView.findViewById(R.id.recipeName);
+            tvRecipeName = itemView.findViewById(R.id.tvRecipeName);
+            tvCookingTime = itemView.findViewById(R.id.tvCookingTime);
+            tvCalories = itemView.findViewById(R.id.tvCalories);
+            tvServings = itemView.findViewById(R.id.tvServings);
+            ivRecipeImage = itemView.findViewById(R.id.ivRecipeImage);
 
         }
 
         public void bind(Feed post) {
-            recipeDescription.setText(post.getDescription());
-            recipeCreator.setText(post.getUser().getUsername());
-            //recipeName.setText(post.getRecipe());
+            tvRecipeName.setText(post.getRecipe());
+            tvCookingTime.setText(post.getCookTime());
+            tvCalories.setText(post.getCalories());
+            tvServings.setText(post.getServings());
             ParseFile recipeImageFile = post.getRecipeImage();
             if(recipeImageFile != null) {
-                Glide.with(context).load(post.getRecipeImage().getUrl()).into(recipeImage);
+                Glide.with(context).load(post.getRecipeImage().getUrl()).into(ivRecipeImage);
             }
         }
     }
