@@ -59,23 +59,23 @@ public class Feed  extends ParseObject{
     }
     public String getObjectId(){return getString(KEY_OBJECT_ID);}
 
-    public int getCookTime() {
-        return getInt(key_time);
+    public String getCookTime() {
+        return String.valueOf(getInt(key_time));
     }
 
     public void setCookTime(int time){
         put(key_time, time);
     }
 
-    public int getCalories() {
-        return getInt(key_calories);
+    public String getCalories() {
+        return String.valueOf(getInt(key_calories));
     }
 
     public void setCalories(int calories){
         put(key_calories, calories);
     }
-    public int getServings() {
-        return getInt(key_servings);
+    public String getServings() {
+        return String.valueOf(getInt(key_servings));
     }
 
     public void setServings(int servings){

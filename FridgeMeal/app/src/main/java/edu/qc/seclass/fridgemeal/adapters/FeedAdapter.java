@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,19 +15,18 @@ import com.parse.ParseFile;
 
 import java.util.List;
 
-import edu.qc.seclass.fridgemeal.models.Favorites;
 import edu.qc.seclass.fridgemeal.models.Feed;
 import edu.qc.seclass.fridgemeal.R;
 
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
 
-    private Context context;
-    private List<Feed> feeds;
-    TextView tvRecipeName;
-    TextView tvCookingTime;
-    TextView tvCalories;
-    TextView tvServings;
-    ImageView ivRecipeImage;
+    private final Context context;
+    private final List<Feed> feeds;
+    TextView recipeName;
+    TextView cookingTime;
+    TextView calories;
+    TextView servings;
+    ImageView recipeImage;
 
 
     public FeedAdapter(Context context, List<Feed> feeds){
@@ -72,22 +70,22 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     class ViewHolder extends RecyclerView.ViewHolder {
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvRecipeName = itemView.findViewById(R.id.tvRecipeName);
-            tvCookingTime = itemView.findViewById(R.id.tvCookingTime);
-            tvCalories = itemView.findViewById(R.id.tvCalories);
-            tvServings = itemView.findViewById(R.id.tvServings);
-            ivRecipeImage = itemView.findViewById(R.id.ivRecipeImage);
+            recipeName = itemView.findViewById(R.id.tvRecipeName);
+            cookingTime = itemView.findViewById(R.id.tvCookingTime);
+            calories = itemView.findViewById(R.id.tvCalories);
+            servings = itemView.findViewById(R.id.tvServings);
+            recipeImage = itemView.findViewById(R.id.ivRecipeImage);
 
         }
 
         public void bind(Feed post) {
-            tvRecipeName.setText(post.getRecipe());
-            tvCookingTime.setText(post.getCookTime());
-            tvCalories.setText(post.getCalories());
-            tvServings.setText(post.getServings());
+            recipeName.setText(post.getRecipe());
+            cookingTime.setText(post.getCookTime());
+            calories.setText(post.getCalories());
+            servings.setText(post.getServings());
             ParseFile recipeImageFile = post.getRecipeImage();
             if(recipeImageFile != null) {
-                Glide.with(context).load(post.getRecipeImage().getUrl()).into(ivRecipeImage);
+                Glide.with(context).load(post.getRecipeImage().getUrl()).into(recipeImage);
             }
         }
     }
