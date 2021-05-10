@@ -5,6 +5,8 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import org.json.JSONArray;
+
 @ParseClassName("Users")
 public class User extends ParseObject{
     public static final String key_description = "userInfo";
@@ -12,7 +14,8 @@ public class User extends ParseObject{
     public static final String key_user = "user";
     public static final String key_status = "status";
     public static String key_created = "createdAt";
-    public static final String KEY_OBJECT_ID = "objectId";
+    public static final String KEY_FAVORITE ="favorites";
+
 
     public String getDescription() {
         return getString(key_description);
@@ -45,7 +48,9 @@ public class User extends ParseObject{
     public void setStatus(String status){
         put(key_status, status);
     }
+    public void setFavorites(JSONArray jsonArray){put(KEY_FAVORITE, jsonArray);}
+    public JSONArray getFavorites(){return getJSONArray(KEY_FAVORITE);}
 
-    public String getObjectID(){return getString(KEY_OBJECT_ID);}
+
 
 }

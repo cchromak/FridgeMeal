@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/containerRecipe"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/rectangle"
+    android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp"
-    android:layout_marginTop="5dp">
+    android:background="@drawable/rectangle">
 
     <ImageView
         android:id="@+id/ivRecipeImage"
@@ -19,23 +19,8 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:background="@drawable/circle"
-        tools:srcCompat="@tools:sample/avatars"
-        android:outlineProvider="background"/>
-
-    <TextView
-        android:id="@+id/tvRecipeName"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="10dp"
-        android:layout_toEndOf="@+id/ivRecipeImage"
-        android:text="Chicken Tikka Masala lets go and giet it etrjl aok"
-        android:maxLines="1"
-        android:ellipsize="end"
-        android:textSize="18sp" />
+        android:outlineProvider="background"
+        tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/tvCookingTime"
@@ -47,9 +32,9 @@
         android:layout_marginTop="15dp"
         android:layout_marginEnd="10dp"
         android:layout_toEndOf="@+id/tvCalories"
-        android:text="45 mins"
-        android:maxLines="1"
         android:ellipsize="end"
+        android:maxLines="1"
+        android:text="45 mins"
         android:textSize="16sp"
         android:textStyle="bold" />
 
@@ -74,5 +59,30 @@
         android:layout_toEndOf="@+id/tvServings"
         android:text="900 Calories"
         android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvRecipeName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toEndOf="@+id/ivRecipeImage"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Chicken Tikka Masala lets go and giet it etrjl aok"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/btnAddToFavorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvCalories"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="49dp"
+        android:layout_marginEnd="11dp"
+        android:text="@string/favoritebutton" />
 
 </RelativeLayout>

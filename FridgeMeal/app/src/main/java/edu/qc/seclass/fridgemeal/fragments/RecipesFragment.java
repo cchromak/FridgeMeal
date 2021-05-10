@@ -26,12 +26,17 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.w3c.dom.ls.LSOutput;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import edu.qc.seclass.fridgemeal.R;
 import edu.qc.seclass.fridgemeal.adapters.FeedAdapter;
+import edu.qc.seclass.fridgemeal.adapters.RecipeAdapter;
 import edu.qc.seclass.fridgemeal.adapters.UserAdapter;
 import edu.qc.seclass.fridgemeal.models.Favorites;
 import edu.qc.seclass.fridgemeal.models.Feed;
@@ -46,6 +51,7 @@ public class RecipesFragment extends Fragment{
     private Button btnFavoriteRecipes;
     private FeedAdapter feedAdapter;
     protected List<Feed> feeds;
+    protected List<Recipe> recipeList;
 
     private static String tag = "RecipesFragment";
 
@@ -70,6 +76,9 @@ public class RecipesFragment extends Fragment{
         btnFriendsRecipes = view.findViewById(R.id.btnFriendsRecipes);
         btnFavoriteRecipes = view.findViewById(R.id.btnFavoriteRecipes);
         feeds = new LinkedList<>();
+        recipeList = new LinkedList<>();
+
+
 
         // Create Adapter
         feedAdapter = new FeedAdapter(getContext(), feeds);
@@ -144,27 +153,44 @@ public class RecipesFragment extends Fragment{
                 feedAdapter.addAll(feeds);
             }
         });
-    }
-    protected void queryFavoriteRecipes(){
-        ParseQuery<Favorites> favorites = ParseQuery.getQuery(Favorites.class);
-        ParseUser user = ParseUser.getCurrentUser();
-        ParseQuery<User> thisUser = ParseQuery.getQuery(User.class);
-        thisUser.whereEqualTo(User.key_user, user.getObjectId());
 
-        Log.i(tag, user.getObjectId());
-        favorites.whereEqualTo(Favorites.KEY_USER_PK, user);
-        ParseQuery<Feed> feedParseQuery = ParseQuery.getQuery(Feed.class);
-        feedParseQuery.whereMatchesKeyInQuery(Feed.KEY_OBJECT_ID, Favorites.KEY_RECIPE_FK, favorites);
-        feedParseQuery.findInBackground(new FindCallback<Feed>() {
+    }
+
+    protected void queryFavoriteRecipes(){
+        ParseQuery<User> userParseQuery = ParseQuery.getQuery(User.class);
+        userParseQuery.include(User.key_user);
+        ParseUser user = ParseUser.getCurrentUser();
+        userParseQuery.whereEqualTo(User.key_user, user);
+        userParseQuery.findInBackground(new FindCallback<User>() {
             @Override
-            public void done(List<Feed> objects, ParseException e) {
+            public void done(List<User> objects, ParseException e) {
                 if (e != null){
-                    Log.e(tag, "", e);
+                    Log.e(tag, "Error fetching user", e);
                     return;
+
+                }
+                JSONArray jsonArray = objects.get(0).getJSONArray(User.KEY_FAVORITE);
+                try {
+                    recipeList = Recipe.fromJsonArray(jsonArray);
+                    List<Feed> newFeedObjects = new LinkedList<>();
+                    for (int i = 0; i < recipeList.size(); i++){
+                        Feed feedObject = new Feed();
+                        feedObject.setCalories(Integer.parseInt(recipeList.get(i).getCalories()));
+                        feedObject.setRecipe(recipeList.get(i).getRecipeName());
+                        feedObject.setCookTime(Integer.parseInt(recipeList.get(i).getCookingTime()));
+                        feedObject.setServings(Integer.parseInt(recipeList.get(i).getServing()));
+                        newFeedObjects.add(feedObject);
+
+                    }
+                    feeds.clear();
+                    feeds.addAll(newFeedObjects);
+                } catch (JSONException jsonException) {
+                    jsonException.printStackTrace();
                 }
 
-                Log.i(tag, "test " + Integer.toString(objects.size()));
             }
+
+
         });
 
     }

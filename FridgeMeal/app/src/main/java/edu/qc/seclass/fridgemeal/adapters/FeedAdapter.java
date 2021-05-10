@@ -1,9 +1,11 @@
 package edu.qc.seclass.fridgemeal.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -11,12 +13,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
 import edu.qc.seclass.fridgemeal.models.Feed;
 import edu.qc.seclass.fridgemeal.R;
+import edu.qc.seclass.fridgemeal.models.User;
 
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
 
@@ -27,6 +38,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     TextView calories;
     TextView servings;
     ImageView recipeImage;
+    Button btnAddToFavorite;
 
 
     public FeedAdapter(Context context, List<Feed> feeds){
@@ -75,6 +87,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             calories = itemView.findViewById(R.id.tvCalories);
             servings = itemView.findViewById(R.id.tvServings);
             recipeImage = itemView.findViewById(R.id.ivRecipeImage);
+            btnAddToFavorite = itemView.findViewById(R.id.btnAddToFavorite);
 
         }
 
@@ -87,6 +100,38 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             if(recipeImageFile != null) {
                 Glide.with(context).load(post.getRecipeImage().getUrl()).into(recipeImage);
             }
+            btnAddToFavorite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ParseQuery<User> userParseQuery = ParseQuery.getQuery(User.class);
+                    userParseQuery.include(User.key_user);
+                    ParseUser user = ParseUser.getCurrentUser();
+                    userParseQuery.whereEqualTo(User.key_user, user);
+                    userParseQuery.findInBackground(new FindCallback<User>() {
+                        @Override
+                        public void done(List<User> objects, ParseException e) {
+                            if (e != null){
+                                Log.e("FeedAdapter", "Error fetching user", e);
+                                return;
+                            }
+                            JSONArray jsonArray = objects.get(0).getJSONArray(User.KEY_FAVORITE);
+                            JSONObject jsonObject = new JSONObject();
+                            try {
+                                jsonObject.put("recipeName", post.getRecipe());
+                                jsonObject.put("cookingTime", post.getCookTime());
+                                jsonObject.put("calories", post.getCalories());
+                                jsonObject.put("servings", post.getServings());
+                                jsonArray.put(jsonObject);
+                            } catch (JSONException jsonException) {
+                                jsonException.printStackTrace();
+                            }
+
+
+                        }
+                    });
+
+                }
+            });
         }
     }
 }
