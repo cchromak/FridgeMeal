@@ -29,7 +29,7 @@ After a user inputs ingredients they have at their disposal they are shown a lis
 - [x] User login in to access favorite/personal recipes/results
 - [x] User should be able to search recipes by ingredients
 - [x] Recipe results should be sorted by relevance
-* User should be able to see a more detailed description of each recipe
+- [x] User should be able to see a more detailed description of each recipe
 * User should able to add personal recipes either public/private
 * User should be able to see a list of favorite/indivudal recipes
 
