@@ -38,7 +38,8 @@ public class RecipeDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_detail);
 
-
+        user.setUser(ParseUser.getCurrentUser());
+        JSONArray jsonArray = user.getFavorites();
         ivRecipeImageDetail = findViewById(R.id.ivRecipeImageDetail);
         tvRecipeNameDetail = findViewById(R.id.tvRecipeNameDetail);
         tvRecipeDescriptionDetail = findViewById(R.id.tvRecipeDescriptionDetail);
@@ -65,7 +66,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         
-
+        if()
 
         try {
             JSONArray ingredientJSONArray = new JSONArray(ingredientArray);
@@ -83,15 +84,15 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
         tvRecipeNameDetail.setText(recipeName);
 
-//        for(index = 0; jsonArray.; index++)
+        for(index = 0; jsonArray.; index++)
 
-//        faveBox.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(json object does not exist) jsonArray.put(jsonObject);
-//                else jsonArray.remove(jsonObject);
-//            }
-//        });
+        faveBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(json object does not exist) jsonArray.put(jsonObject);
+                else jsonArray.remove(jsonObject);
+            }
+        });
 
         btnRecipeDirections.setOnClickListener(new View.OnClickListener() {
             @Override
