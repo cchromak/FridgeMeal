@@ -2,6 +2,7 @@ package edu.qc.seclass.fridgemeal.models;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.parse.ParseUser;
@@ -30,16 +32,15 @@ public class RecipeDetailActivity extends AppCompatActivity {
     TextView tvRecipeDescriptionDetail;
     Button btnRecipeDirections;
     Button faveBox;
-    User user;
     int index = 0;
+    private final String tag = "RecipeDetailActivity";
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_detail);
 
-        user.setUser(ParseUser.getCurrentUser());
-        JSONArray jsonArray = user.getFavorites();
         ivRecipeImageDetail = findViewById(R.id.ivRecipeImageDetail);
         tvRecipeNameDetail = findViewById(R.id.tvRecipeNameDetail);
         tvRecipeDescriptionDetail = findViewById(R.id.tvRecipeDescriptionDetail);
@@ -83,16 +84,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
         Glide.with(RecipeDetailActivity.this).load(imagePath).into(ivRecipeImageDetail);
 
         tvRecipeNameDetail.setText(recipeName);
-
-        for(index = 0; jsonArray.; index++)
-
-        faveBox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(json object does not exist) jsonArray.put(jsonObject);
-                else jsonArray.remove(jsonObject);
-            }
-        });
 
         btnRecipeDirections.setOnClickListener(new View.OnClickListener() {
             @Override
