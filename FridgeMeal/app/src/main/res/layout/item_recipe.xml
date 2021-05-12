@@ -75,14 +75,4 @@
         android:text="Chicken Tikka Masala lets go and giet it etrjl aok"
         android:textSize="18sp" />
 
-    <Button
-        android:id="@+id/btnAddToFavorite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvCalories"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="49dp"
-        android:layout_marginEnd="11dp"
-        android:text="@string/favoritebutton" />
-
 </RelativeLayout>
