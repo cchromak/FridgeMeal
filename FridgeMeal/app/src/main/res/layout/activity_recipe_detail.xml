@@ -60,4 +60,16 @@
         android:text="View Directions"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
 
+    <CheckBox
+        android:id="@+id/faveBox"
+        android:layout_width="92dp"
+        android:layout_height="47dp"
+        android:layout_above="@+id/tvRecipeDescriptionDetail"
+        android:layout_below="@+id/ivRecipeImageDetail"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="7dp"
+        android:layout_marginBottom="0dp"
+        android:text="Favorite" />
+
 </RelativeLayout>

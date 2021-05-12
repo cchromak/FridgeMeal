@@ -87,7 +87,6 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             calories = itemView.findViewById(R.id.tvCalories);
             servings = itemView.findViewById(R.id.tvServings);
             recipeImage = itemView.findViewById(R.id.ivRecipeImage);
-            btnAddToFavorite = itemView.findViewById(R.id.btnAddToFavorite);
 
         }
 
