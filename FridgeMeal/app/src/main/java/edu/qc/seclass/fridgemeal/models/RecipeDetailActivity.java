@@ -162,7 +162,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
             @Override
             public void done(ParseException e) {
                 if(e != null){
-                    Toast.makeText(context, "favorites saved", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "favorites saved " + jsonArray.length(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
