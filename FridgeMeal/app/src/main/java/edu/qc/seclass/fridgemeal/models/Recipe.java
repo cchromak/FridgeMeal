@@ -29,6 +29,10 @@ public class Recipe {
         this.ingredientArray = jsonObject.getJSONObject("recipe").getJSONArray("ingredientLines");
     }
 
+    public Recipe() {
+
+    }
+
     public static List<Recipe> fromJsonArray(JSONArray jsonArray) throws JSONException {
         List<Recipe> recipes = new LinkedList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -66,5 +70,32 @@ public class Recipe {
         return ingredientArray;
     }
 
+    public void setRecipeName(String recipeName) {
+        this.recipeName = recipeName;
+    }
+
+    public void setCookingTime(int cookingTime) {
+        this.cookingTime = cookingTime;
+    }
+
+    public void setServing(int serving) {
+        this.serving = serving;
+    }
+
+    public void setCalories(int calories) {
+        this.calories = calories;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public void setDirectionsPath(String directionsPath) {
+        this.directionsPath = directionsPath;
+    }
+
+    public void setIngredientArray(JSONArray ingredientArray) {
+        this.ingredientArray = ingredientArray;
+    }
 }
 

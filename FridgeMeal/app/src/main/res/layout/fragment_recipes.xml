@@ -17,29 +17,17 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"/>
-        <Button
-            android:id="@+id/btnYourRecipes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Yours"/>
+
         <Space
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"/>
-        <Button
-            android:id="@+id/btnFriendsRecipes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Friends"/>
+
         <Space
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"/>
-        <Button
-            android:id="@+id/btnFavoriteRecipes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Favorite"/>
+
         <Space
             android:layout_weight="1"
             android:layout_height="wrap_content"
