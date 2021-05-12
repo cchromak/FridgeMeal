@@ -4,30 +4,41 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.GestureDetectorCompat;
+import androidx.core.view.MotionEventCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
+import org.w3c.dom.ls.LSOutput;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import edu.qc.seclass.fridgemeal.R;
-import edu.qc.seclass.fridgemeal.adapters.FavoriteAdapter;
 import edu.qc.seclass.fridgemeal.adapters.FeedAdapter;
+import edu.qc.seclass.fridgemeal.adapters.RecipeAdapter;
+import edu.qc.seclass.fridgemeal.adapters.UserAdapter;
+import edu.qc.seclass.fridgemeal.models.Favorites;
 import edu.qc.seclass.fridgemeal.models.Feed;
 import edu.qc.seclass.fridgemeal.models.Recipe;
 import edu.qc.seclass.fridgemeal.models.User;
@@ -35,7 +46,11 @@ import edu.qc.seclass.fridgemeal.models.User;
 public class RecipesFragment extends Fragment{
 
     private RecyclerView rvRecipes;
-    private FavoriteAdapter favoriteAdapter;
+    private Button btnYourRecipes;
+    private Button btnFriendsRecipes;
+    private Button btnFavoriteRecipes;
+    private FeedAdapter feedAdapter;
+    protected List<Feed> feeds;
     protected List<Recipe> recipeList;
 
     private static String tag = "RecipesFragment";
@@ -57,21 +72,46 @@ public class RecipesFragment extends Fragment{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         rvRecipes = view.findViewById(R.id.rvRecipes);
+        btnYourRecipes = view.findViewById(R.id.btnYourRecipes);
+        btnFriendsRecipes = view.findViewById(R.id.btnFriendsRecipes);
+        btnFavoriteRecipes = view.findViewById(R.id.btnFavoriteRecipes);
+        feeds = new LinkedList<>();
         recipeList = new LinkedList<>();
 
 
 
         // Create Adapter
-        favoriteAdapter = new FavoriteAdapter(getContext(), recipeList);
+        feedAdapter = new FeedAdapter(getContext(), feeds);
 
         // Set Adapter
-        rvRecipes.setAdapter(favoriteAdapter);
+        rvRecipes.setAdapter(feedAdapter);
 
         // Set layout manager
         rvRecipes.setLayoutManager(new LinearLayoutManager(getContext()));
-        queryFavoriteRecipes();
+        queryPosts();
 
 
+        btnYourRecipes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                queryPosts();
+            }
+        });
+
+        btnFriendsRecipes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                queryFriendsPosts();
+            }
+        });
+
+        btnFavoriteRecipes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "ok", Toast.LENGTH_SHORT).show();
+                queryFavoriteRecipes();
+            }
+        });
     }
 
 
@@ -91,8 +131,8 @@ public class RecipesFragment extends Fragment{
                     Log.e(tag, "not null!", e);
                     return;
                 }
-                favoriteAdapter.clear();
-                favoriteAdapter.addAll(recipeList);
+                feedAdapter.clear();
+                feedAdapter.addAll(feeds);
             }
         });
     }
@@ -109,8 +149,8 @@ public class RecipesFragment extends Fragment{
                     Log.e(tag, "not null!", e);
                     return;
                 }
-                favoriteAdapter.clear();
-//                favoriteAdapter.addAll(feeds);
+                feedAdapter.clear();
+                feedAdapter.addAll(feeds);
             }
         });
 
@@ -130,19 +170,20 @@ public class RecipesFragment extends Fragment{
 
                 }
                 JSONArray jsonArray = objects.get(0).getJSONArray(User.KEY_FAVORITE);
-                System.out.println(jsonArray.length());
                 try {
-                    JSONObject jsonObject = jsonArray.getJSONObject(0);
-                    System.out.println(jsonObject.toString());
-                    Recipe recipe = new Recipe();
-                    recipe.setRecipeName(jsonObject.getString("recipeName"));
-                    recipe.setCalories(jsonObject.getInt("calories"));
-                    recipe.setServing(jsonObject.getInt("servings"));
-                    recipe.setCookingTime(jsonObject.getInt("cookingTime"));
-                    System.out.println(recipe.toString());
-                    System.out.println(recipe.getRecipeName());
-                    recipeList.add(recipe);
-                    favoriteAdapter.addAll(recipeList);
+                    recipeList = Recipe.fromJsonArray(jsonArray);
+                    List<Feed> newFeedObjects = new LinkedList<>();
+                    for (int i = 0; i < recipeList.size(); i++){
+                        Feed feedObject = new Feed();
+                        feedObject.setCalories(Integer.parseInt(recipeList.get(i).getCalories()));
+                        feedObject.setRecipe(recipeList.get(i).getRecipeName());
+                        feedObject.setCookTime(Integer.parseInt(recipeList.get(i).getCookingTime()));
+                        feedObject.setServings(Integer.parseInt(recipeList.get(i).getServing()));
+                        newFeedObjects.add(feedObject);
+
+                    }
+                    feeds.clear();
+                    feeds.addAll(newFeedObjects);
                 } catch (JSONException jsonException) {
                     jsonException.printStackTrace();
                 }

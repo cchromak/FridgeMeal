@@ -38,6 +38,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     TextView calories;
     TextView servings;
     ImageView recipeImage;
+    Button btnAddToFavorite;
 
 
     public FeedAdapter(Context context, List<Feed> feeds){
@@ -98,6 +99,38 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             if(recipeImageFile != null) {
                 Glide.with(context).load(post.getRecipeImage().getUrl()).into(recipeImage);
             }
+            btnAddToFavorite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ParseQuery<User> userParseQuery = ParseQuery.getQuery(User.class);
+                    userParseQuery.include(User.key_user);
+                    ParseUser user = ParseUser.getCurrentUser();
+                    userParseQuery.whereEqualTo(User.key_user, user);
+                    userParseQuery.findInBackground(new FindCallback<User>() {
+                        @Override
+                        public void done(List<User> objects, ParseException e) {
+                            if (e != null){
+                                Log.e("FeedAdapter", "Error fetching user", e);
+                                return;
+                            }
+                            JSONArray jsonArray = objects.get(0).getJSONArray(User.KEY_FAVORITE);
+                            JSONObject jsonObject = new JSONObject();
+                            try {
+                                jsonObject.put("recipeName", post.getRecipe());
+                                jsonObject.put("cookingTime", post.getCookTime());
+                                jsonObject.put("calories", post.getCalories());
+                                jsonObject.put("servings", post.getServings());
+                                jsonArray.put(jsonObject);
+                            } catch (JSONException jsonException) {
+                                jsonException.printStackTrace();
+                            }
+
+
+                        }
+                    });
+
+                }
+            });
         }
     }
 }
