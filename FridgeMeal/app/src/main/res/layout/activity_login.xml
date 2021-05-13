@@ -54,7 +54,8 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="34dp"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        android:foreground="@drawable/whatsapp_image_2021_05_10_at_21_39_40"
+        tools:srcCompat="@drawable/whatsapp_image_2021_05_10_at_21_39_40" />
 
     <Button
         android:id="@+id/btnSignUp"

@@ -50,6 +50,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_detail);
+        queryUser();
 
         ivRecipeImageDetail = findViewById(R.id.ivRecipeImageDetail);
         tvRecipeNameDetail = findViewById(R.id.tvRecipeNameDetail);
@@ -76,8 +77,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        queryUser();
 
         try {
             JSONArray ingredientJSONArray = new JSONArray(ingredientArray);
