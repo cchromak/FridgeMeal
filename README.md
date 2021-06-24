@@ -69,8 +69,7 @@ After a user inputs ingredients they have at their disposal they are shown a lis
    * Recipe details
 
 ## Wireframes
-[Add picture of your hand sketched wireframes in this section]
-<img src="YOUR_WIREFRAME_IMAGE_URL" width=600>
+<img src="https://github.com/cchromak/FridgeMeal/blob/main/Images/homeWF.png" width=600>
 
 
 
